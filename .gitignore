@@ -1,0 +1,7 @@
+Library/
+*.meta
+*.csproj
+*.unityproj
+Assets/Editor Default Resources/
+Assets/Externals/
+*.sln
