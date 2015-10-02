@@ -1,0 +1,2 @@
+DI_Entities:
+Contains the base entity class that is inherited for anything that exists in the world.

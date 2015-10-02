@@ -1,0 +1,32 @@
+DI_AI:
+Requires DI_Entities
+Contains AI logic
+DI_Controllers:
+Contains character controllers
+DI_Core:
+Contains the core of the DI framework
+GameState
+Pooling
+Events
+Screen Functions
+Triggers
+Debugging
+Music
+Cheats
+DI_Dialog:
+Contains dialog system
+DI_Editor:
+Contains custom editors for workflow improvements.
+DI_Entities:
+Contains the base entity class that is inherited for anything that exists in the world.
+DI_Integrations:
+Contains code to work with 3rd party scripts
+DI_Networking:
+Contains code for multiplayer games
+DI_Notifications:
+Requires DI_UI
+Contains code to create in game notifications and screen popups.
+DI_Score:
+Contains code for creating a scoreboard and saving high scores
+DI_UI:
+Contains code for implementing common ui elements

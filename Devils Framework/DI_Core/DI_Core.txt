@@ -1,0 +1,9 @@
+Contains the core of the DI framework
+GameState
+Pooling
+Events
+Screen Functions
+Triggers
+Debugging
+Music
+Cheats
