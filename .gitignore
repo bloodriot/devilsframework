@@ -5,3 +5,6 @@ Library/
 Assets/Editor Default Resources/
 Assets/Externals/
 *.sln
+Temp/
+Builds/
+*.userprefs
