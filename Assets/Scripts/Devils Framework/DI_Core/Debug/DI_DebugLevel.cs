@@ -7,11 +7,12 @@ namespace DI.Core
 {
 	public enum DI_DebugLevel
 	{
-		NONE,
+		ALL,
 		INFO,
 		LOW,
 		MEDIUM,
 		HIGH,
-		CRITICAL
+		CRITICAL,
+		NONE
 	}
 }

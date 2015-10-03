@@ -22,13 +22,17 @@ namespace DI.Test
 
 			Type[] types = Assembly.GetExecutingAssembly().GetTypes();
 
+			// Look at the assembly and loop through all the loaded classes.
+			// Then look at the interfaces that class uses, if its using the testing interface then we found a test to load.
+			// Create a new instance with the Activator and add it to the list of tests.
+
 			for (int iteration = 0; iteration < types.Length; iteration++) {
 				Type testType = types[iteration];
 				Type[] interfaces = testType.GetInterfaces();
 				for (int interfacesIteration = 0; interfacesIteration < interfaces.Length; interfacesIteration++) {
 					Type interfaceType = interfaces[interfacesIteration];
 					if (interfaceType == typeof(DI_TestInterface)) {
-						DI_Debug.writeLog(DI_DebugLevel.MEDIUM, "Found a test to load: " + typeof(DI_TestInterface).ToString());
+						DI_Debug.writeLog(DI_DebugLevel.INFO, "Found a test to load: " + typeof(DI_TestInterface).ToString());
 						DI_TestInterface test = (DI_TestInterface) Activator.CreateInstance(types[iteration]);
 						tests.Add(test);
 					}
@@ -44,7 +48,7 @@ namespace DI.Test
 			                  + " Time Taken: " + testTime + "MS");
 		}
 
-		public static bool runTest(int testId)
+		public static DI_TestResult runTest(int testId)
 		{
 			DateTime startTime = DateTime.Now;
 
@@ -56,20 +60,10 @@ namespace DI.Test
 			// 2. Run the test.
 			// 3. Tear down the test.
 
-			if (tests[testId].buildUp()) {
-				if (tests[testId].run()) {
-					if (!tests[testId].tearDown())
-					{
-						testPassed = false;
-					}
-				}
-				else {
-					testPassed = false;
-				}
-			}
-			else {
-				testPassed = false;
-			}
+			DI_TestInterface test = tests[testId];
+			test.buildUp();
+			test.run();
+			test.tearDown();
 
 			DateTime endTime = DateTime.Now;
 
@@ -79,15 +73,16 @@ namespace DI.Test
 			                  " Test Name: " + tests[testId].getTestName()
 			                  + " Result: " + testPassed.ToString()
 			                  + " Time Taken: " + testTime + "MS");
-			return true;
+			return test.getTestResult();
 		}
 
 		public static void runTests()
 		{
-			UnityEngine.Debug.Log("Starting Test Runner.");
+			DI_Debug.writeLog(DI_DebugLevel.INFO, "Starting Test Runner.");
 
 			int failedTests = 0;
 			int passedTests = 0;
+			int totalTests = 0;
 
 			tests = new List<DI_TestInterface>();
 
@@ -96,18 +91,31 @@ namespace DI.Test
 			spawnTests();
 
 			for (int testIteration = 0; testIteration < tests.Count; testIteration++) {
-				if (runTest(testIteration)) {
-					passedTests++;
-				}
-				else {
-					failedTests++;
-				}
+
+				DateTime testStartTime = DateTime.Now;
+
+				DI_TestInterface test = tests[testIteration];
+				DI_TestResult results = runTest(testIteration);
+
+				DateTime testEndTime = DateTime.Now;
+
+				DI_Debug.writeLog(DI_DebugLevel.INFO,
+				                  "Test Finished: " + test.getTestName()
+				                  + " Sub Tests: " + results.totalTests
+				                  + " Passed: " + results.passedTests
+				                  + " Failed: " + results.failedTests
+				                  + " Time Taken: " + DI_DateTime.diffTime(testStartTime, testEndTime).TotalMilliseconds + "MS");
+
+				totalTests += results.totalTests;
+				failedTests += results.failedTests;
+				passedTests += results.passedTests;
 			}
 
 			DateTime endTime = DateTime.Now;
 
 			DI_Debug.writeLog(DI_DebugLevel.INFO, 
-			                  "Tests Ran: " + tests.Count
+			                  "Tests Found: " + tests.Count
+			                  + " Sub Tests Ran: " + totalTests
 			                  + " Passed: " + passedTests
 			                  + " Failed: " + failedTests
 			                  + " Total Time Taken: " + DI_DateTime.diffTime(startTime, endTime).TotalMilliseconds + "MS");

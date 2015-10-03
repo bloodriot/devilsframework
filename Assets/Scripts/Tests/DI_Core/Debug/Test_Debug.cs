@@ -1,11 +1,11 @@
-﻿// Devils Inc Studios
+// Devils Inc Studios
 // Copyright DEVILS INC. STUDIOS LIMITED 2015
 // TODO: Include a description of the file here.
 //
 
 using DI.Test;
 
-namespace DI.Core
+namespace DI.Core.Test
 {
 	public class Test_Debug : DI_Test, DI_TestInterface
 	{
@@ -18,7 +18,7 @@ namespace DI.Core
 
 		public void testLog()
 		{
-			DI_Debug.writeLog(DI_DebugLevel.NONE, "Test");
+			DI_Debug.writeLog(DI_DebugLevel.ALL, "Test");
 			DI_Debug.writeLog(DI_DebugLevel.INFO, "Test");
 			DI_Debug.writeLog(DI_DebugLevel.LOW, "Test");
 			DI_Debug.writeLog(DI_DebugLevel.MEDIUM, "Test");
@@ -26,12 +26,13 @@ namespace DI.Core
 			DI_Debug.writeLog(DI_DebugLevel.CRITICAL, "Test");
 		}
 
-		public bool run()
+		public DI_TestResult run()
 		{
-			DI_Debug.setGobalDebugLevel(DI_DebugLevel.NONE);
-			if (!isEqual<DI_DebugLevel>(DI_DebugLevel.NONE, DI_Debug.getGlobalDebugLevel(), "Setting global debug works correctly.")) { return false; };
+			DI_Debug.setGobalDebugLevel(DI_DebugLevel.ALL);
+			isEqual<DI_DebugLevel>(DI_DebugLevel.ALL, DI_Debug.getGlobalDebugLevel(), "Setting global debug works correctly.");
+
 			testLog();
-			return true;
+			return new DI_TestResult(passedTests, failedTests, totalTests);
 		}
 		
 		public bool tearDown()

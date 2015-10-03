@@ -11,7 +11,7 @@ namespace DI.Core
 {
 	public static class DI_Debug
 	{
-		private static DI_DebugLevel globalDebugLevel = DI_DebugLevel.CRITICAL;
+		private static DI_DebugLevel globalDebugLevel = DI_DebugLevel.ALL;
 
 		public static void setGobalDebugLevel(DI_DebugLevel debugLevel) {
 			writeLog(DI_DebugLevel.INFO, "globalDebugLevel changed to: " + Enum.GetName(typeof(DI_DebugLevel), debugLevel));
