@@ -29,7 +29,8 @@ namespace DI.Test
 			}
 			else {
 				failedTests++;
-				DI_Debug.writeLog(DI_DebugLevel.INFO, "Test: " + description + " Result: false");
+				DI_Debug.writeLog(DI_DebugLevel.CRITICAL, "Test: " + description + " Result: false");
+				DI_Debug.writeLog(DI_DebugLevel.CRITICAL, objectOne.ToString() + " is not equal to: " + objectTwo.ToString());
 				return false;
 			}
 		}
@@ -43,7 +44,8 @@ namespace DI.Test
 			}
 			else {
 				failedTests++;
-				DI_Debug.writeLog(DI_DebugLevel.INFO, "Test: " + description + " Result: false");
+				DI_Debug.writeLog(DI_DebugLevel.CRITICAL, "Test: " + description + " Result: false");
+				DI_Debug.writeLog(DI_DebugLevel.CRITICAL, objectOne.ToString() + " is equal to: " + objectTwo.ToString());
 				return false;
 			}
 		}
