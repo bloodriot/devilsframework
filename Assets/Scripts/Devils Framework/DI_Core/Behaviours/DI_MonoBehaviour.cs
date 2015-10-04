@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-namespace DI.Core
+namespace DI.Core.Behaviours
 {
 	public class DI_MonoBehaviour : MonoBehaviour, DI_Behaviour
 	{

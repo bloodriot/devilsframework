@@ -5,7 +5,7 @@
 
 using UnityEngine.Networking;
 
-namespace DI.Core
+namespace DI.Core.Behaviours
 {
 	public class DI_NetworkBehaviour : NetworkBehaviour, DI_Behaviour
 	{

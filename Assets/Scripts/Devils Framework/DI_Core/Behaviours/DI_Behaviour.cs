@@ -3,9 +3,7 @@
 // TODO: Include a description of the file here.
 //
 
-using UnityEngine;
-
-namespace DI.Core
+namespace DI.Core.Behaviours
 {
 	public interface DI_Behaviour
 	{

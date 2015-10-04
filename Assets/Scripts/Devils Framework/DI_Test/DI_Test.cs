@@ -49,5 +49,37 @@ namespace DI.Test
 				return false;
 			}
 		}
+
+		public bool isGreaterThan(float numberOne, float numberTwo, string description)
+		{
+			totalTests++;
+			if (numberOne > numberTwo) {
+				passedTests++;
+				DI_Debug.writeLog(DI_DebugLevel.INFO, "Test: " + description + " Result: true");
+				return true;
+			}
+			else {
+				failedTests++;
+				DI_Debug.writeLog(DI_DebugLevel.CRITICAL, "Test: " + description + " Result: false");
+				DI_Debug.writeLog(DI_DebugLevel.CRITICAL, numberOne + " is less than: " + numberTwo);
+				return false;
+			}
+		}
+
+		public bool isLessThan(float numberOne, float numberTwo, string description)
+		{
+			totalTests++;
+			if (numberOne < numberTwo) {
+				passedTests++;
+				DI_Debug.writeLog(DI_DebugLevel.INFO, "Test: " + description + " Result: true");
+				return true;
+			}
+			else {
+				failedTests++;
+				DI_Debug.writeLog(DI_DebugLevel.CRITICAL, "Test: " + description + " Result: false");
+				DI_Debug.writeLog(DI_DebugLevel.CRITICAL, numberOne + " is greater than: " + numberTwo);
+				return false;
+			}
+		}
 	}
 }

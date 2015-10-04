@@ -4,13 +4,10 @@
 // TODO: Include a description of the file here.
 //
 
-using DI.Core;
-using DI.Test;
-
-public class TestRunner : DI.Core.DI_MonoBehaviour
+namespace DI.Core.Cheat
 {
-	public void Awake()
+	public class DI_Cheat
 	{
-		DI_TestRunner.runTests();
+		public bool isCheatActive = false;
 	}
 }
