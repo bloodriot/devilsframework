@@ -19,7 +19,6 @@ namespace DI.Core.Cheat
 			}
 
 			sun.transform.rotation = Quaternion.Euler(new Vector3(DI_World.convertTimeToSunAngle(12, 0), 0f, 0f));
-			DI_Debug.writeLog(DI_DebugLevel.INFO, "Attempting to set rotation to: " + DI_World.convertTimeToSunAngle(12, 0));
 			DI_Debug.writeLog(DI_DebugLevel.INFO, "Enabling cheat: Cheat_SetTimeNoon");
 			isCheatActive = true;
 		}
@@ -31,7 +30,6 @@ namespace DI.Core.Cheat
 			}
 
 			sun.transform.rotation = Quaternion.Euler(new Vector3(DI_World.convertTimeToSunAngle(6, 0), 0f, 0f));
-			DI_Debug.writeLog(DI_DebugLevel.INFO, "Attempting to set rotation to: " + DI_World.convertTimeToSunAngle(6, 0));
 			DI_Debug.writeLog(DI_DebugLevel.INFO, "Disabling cheat: Cheat_SetTimeNoon");
 			isCheatActive = false;
 		}
