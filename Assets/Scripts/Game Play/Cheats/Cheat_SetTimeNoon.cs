@@ -6,6 +6,9 @@
 
 using UnityEngine;
 
+using DI.Core.Debug;
+using DI.Core.Helpers;
+
 namespace DI.Core.Cheat
 {
 	public class Cheat_SetTimeNoon : DI_Cheat, DI_CheatInterface

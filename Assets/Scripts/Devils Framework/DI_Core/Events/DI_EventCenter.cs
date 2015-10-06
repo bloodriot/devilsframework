@@ -8,7 +8,7 @@ using System.Collections;
 using System;
 using System.Diagnostics;
 
-namespace DI.Core
+namespace DI.Core.Events
 {
 	class DI_EventCenter {
 		static public Dictionary<string, Delegate> eventTable = new Dictionary<string, Delegate>();

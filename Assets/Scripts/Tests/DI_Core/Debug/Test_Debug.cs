@@ -4,6 +4,7 @@
 //
 
 using DI.Test;
+using DI.Core.Debug;
 
 namespace DI.Core.Test
 {
@@ -11,8 +12,11 @@ namespace DI.Core.Test
 	{
 		public Test_Debug(): base() {}
 
+		public DI_DebugLevel startingDebugLevel;
+
 		public bool buildUp()
 		{
+			startingDebugLevel = DI_Debug.getGlobalDebugLevel();
 			return true;
 		}
 
@@ -37,6 +41,7 @@ namespace DI.Core.Test
 		
 		public bool tearDown()
 		{
+			DI_Debug.setGobalDebugLevel(startingDebugLevel);
 			return true;
 		}
 		

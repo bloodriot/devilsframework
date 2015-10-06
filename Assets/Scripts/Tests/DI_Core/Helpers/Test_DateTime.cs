@@ -5,6 +5,7 @@
 
 using System;
 using DI.Test;
+using DI.Core.Helpers;
 
 namespace DI.Core.Test
 {

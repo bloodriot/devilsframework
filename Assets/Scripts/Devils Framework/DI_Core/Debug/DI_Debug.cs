@@ -7,7 +7,7 @@ using UnityEngine;
 using System.Diagnostics;
 using System;
 
-namespace DI.Core
+namespace DI.Core.Debug
 {
 	public static class DI_Debug
 	{

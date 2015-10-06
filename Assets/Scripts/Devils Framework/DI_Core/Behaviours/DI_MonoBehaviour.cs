@@ -4,6 +4,7 @@
 //
 
 using UnityEngine;
+using DI.Core.Debug;
 
 namespace DI.Core.Behaviours
 {

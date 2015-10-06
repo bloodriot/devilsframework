@@ -8,7 +8,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using System;
 
-using DI.Core;
+using DI.Core.Debug;
+using DI.Core.Helpers;
 
 namespace DI.Test
 {

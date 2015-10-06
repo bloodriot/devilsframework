@@ -5,6 +5,7 @@
 
 using System.Threading;
 using DI.Test;
+using DI.Core.Events;
 
 namespace DI.Core.Test
 {

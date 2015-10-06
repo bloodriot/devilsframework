@@ -4,7 +4,7 @@
 // TODO: Include a description of the file here.
 //
 
-using DI.Core;
+using DI.Core.Debug;
 
 namespace DI.Test
 {

@@ -4,6 +4,7 @@
 //
 
 using UnityEngine.Networking;
+using DI.Core.Debug;
 
 namespace DI.Core.Behaviours
 {

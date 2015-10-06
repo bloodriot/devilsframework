@@ -3,7 +3,7 @@
 // TODO: Include a description of the file here.
 //
 
-namespace DI.Core
+namespace DI.Core.Debug
 {
 	public enum DI_DebugLevel
 	{

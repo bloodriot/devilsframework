@@ -6,7 +6,7 @@
 
 using System;
 
-namespace DI.Core
+namespace DI.Core.Helpers
 {
 	public static class DI_DateTime
 	{

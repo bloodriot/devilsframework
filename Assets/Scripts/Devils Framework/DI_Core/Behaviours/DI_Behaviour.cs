@@ -3,6 +3,8 @@
 // TODO: Include a description of the file here.
 //
 
+using DI.Core.Debug;
+
 namespace DI.Core.Behaviours
 {
 	public interface DI_Behaviour
