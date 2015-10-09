@@ -38,6 +38,7 @@ namespace DI.Editor
 			createGameObject("Menu", gui);
 			createGameObject("Management");
 			createGameObject("Lights");
+			createGameObject("Audio");
 			GameObject world = createGameObject("World");
 			createGameObject("Ground", world);
 			createGameObject("Props", world);
