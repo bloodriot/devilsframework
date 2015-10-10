@@ -5,14 +5,11 @@
 //
 
 using System.Collections.Generic;
-using UnityEngine;
-using DI.SFX;
 
-namespace DI.Entities.Properties
+namespace DI.AI.Properties
 {
-	public struct DI_SFXProperty
+	public struct DI_RelationshipsProperty
 	{
-		public List<DI_SFXClip> sfxs;
-		public bool hasSFX;
+		public List<DI_RelationshipProperty> relationships;
 	}
 }

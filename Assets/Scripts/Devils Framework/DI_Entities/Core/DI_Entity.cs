@@ -7,6 +7,8 @@
 using DI.Entities.Properties;
 using DI.Core.Events;
 using DI.Core.Debug;
+using DI.SFX;
+
 using UnityEngine;
 
 namespace DI.Entities.Core
@@ -20,53 +22,32 @@ namespace DI.Entities.Core
 		public DI_SFXProperty sfxPropertiesOnDespawn;
 		public DI_HealthProperty healthProperties;
 
-		// On Spawn Sound Effects
-		public void setSpawnSFXVolume(float volume)
+		public void addSpawnSFX(DI_SFXClip clip)
 		{
-			sfxPropertiesOnSpawn.soundEffectVolume = volume;
-		}
-
-		public float getSpawnSFXVolume()
-		{
-			return sfxPropertiesOnSpawn.soundEffectVolume;
-		}
-
-		public void addSpawnSFX(AudioClip clip)
-		{
-			if (!sfxPropertiesOnSpawn.soundEffects.Contains(clip)) {
-				sfxPropertiesOnSpawn.soundEffects.Add(clip);
+			if (!sfxPropertiesOnSpawn.sfxs.Contains(clip)) {
+				sfxPropertiesOnSpawn.sfxs.Add(clip);
 			}
 		}
 
-		public void removeSpawnSFX(AudioClip clip)
+		public void removeSpawnSFX(DI_SFXClip clip)
 		{
-			if (sfxPropertiesOnSpawn.soundEffects.Contains(clip)) {
-				sfxPropertiesOnSpawn.soundEffects.Remove(clip);
+			if (sfxPropertiesOnSpawn.sfxs.Contains(clip)) {
+				sfxPropertiesOnSpawn.sfxs.Remove(clip);
 			}
 		}
 
 		// On Despawn Sound Effects
-		public void setDespawnSFXVolume(float volume)
+		public void addDespawnSFX(DI_SFXClip clip)
 		{
-			sfxPropertiesOnDespawn.soundEffectVolume = volume;
-		}
-
-		public float getDespawnSFXVolume()
-		{
-			return sfxPropertiesOnDespawn.soundEffectVolume;
-		}
-		
-		public void addDespawnSFX(AudioClip clip)
-		{
-			if (!sfxPropertiesOnDespawn.soundEffects.Contains(clip)) {
-				sfxPropertiesOnDespawn.soundEffects.Add(clip);
+			if (!sfxPropertiesOnDespawn.sfxs.Contains(clip)) {
+				sfxPropertiesOnDespawn.sfxs.Add(clip);
 			}
 		}
 		
-		public void removeDespawnSFX(AudioClip clip)
+		public void removeDespawnSFX(DI_SFXClip clip)
 		{
-			if (sfxPropertiesOnDespawn.soundEffects.Contains(clip)) {
-				sfxPropertiesOnDespawn.soundEffects.Remove(clip);
+			if (sfxPropertiesOnDespawn.sfxs.Contains(clip)) {
+				sfxPropertiesOnDespawn.sfxs.Remove(clip);
 			}
 		}
 
@@ -132,14 +113,24 @@ namespace DI.Entities.Core
 			return movementProperties.maxTurnSpeed;
 		}
 
+		// This will need to be implimented in game play code as we don't have a GameObject to take the transform.position from.
+		public virtual void playSFX(DI_SFXProperty sfxProperty) {}
+
+		// We don't know what the entity looks like, does it need armor reset, animations?
+		// The class that inherits this will need to set all this in its overriden onSpawn().
+		public virtual void resetEntity() {}
+
+		// This lets you keep track of the individual instance (life) of an entity.
+		public System.Guid getEntityId()
+		{
+			return entityId;
+		}
+
 		// Entity logic
 		public void onDespawn()
 		{
 			DI_EventCenter<DI_Entity>.invoke("OnDespawn", this);
 			DI_Debug.writeLog(DI_DebugLevel.LOW, "Entity onDespawn(" + this.entityId.ToString() + ")");
-			if (sfxPropertiesOnDespawn.hasSFX) {
-				// Play SFX
-			}
 		}
 
 		public void onSpawn()
@@ -147,9 +138,6 @@ namespace DI.Entities.Core
 			entityId = System.Guid.NewGuid();
 			DI_EventCenter<DI_Entity>.invoke("OnSpawn", this);
 			DI_Debug.writeLog(DI_DebugLevel.LOW, "Entity onSpawn(" + this.entityId.ToString() + ")");
-			if (sfxPropertiesOnSpawn.hasSFX) {
-				// Play SFX
-			}
 		}
 	}
 }

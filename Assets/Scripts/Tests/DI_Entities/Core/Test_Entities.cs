@@ -28,8 +28,6 @@ namespace DI.Entities.Test
 			entity.setMaxMovementSpeed(100.0f);
 			entity.setTurnSpeed(100.0f);
 			entity.setMaxTurnSpeed(100.0f);
-			entity.setSpawnSFXVolume(10.0f);
-			entity.setDespawnSFXVolume(10.0f);
 
 			isEqual(entity.getHealth(), 100.0f, "Setting / Getting an Entities health works.");
 			isEqual(entity.getMaxHealth(), 100.0f, "Setting / Getting an Entities max health works.");
@@ -37,8 +35,6 @@ namespace DI.Entities.Test
 			isEqual(entity.getMaxMovementSpeed(), 100.0f, "Setting / Getting an Entities max movement speed works.");
 			isEqual(entity.getTurnSpeed(), 100.0f, "Setting / Getting an Entities turn speed works.");
 			isEqual(entity.getMaxTurnSpeed(), 100.0f, "Setting / Getting an Entities max turn speed works.");
-			isEqual(entity.getDespawnSFXVolume(), 10.0f, "Setting / Getting an Entities despawn sound sfx volume works.");
-			isEqual(entity.getSpawnSFXVolume(), 10.0f, "Setting / Getting an Entities spawn sound sfx volume works.");
 
 			return new DI_TestResult(passedTests, failedTests, totalTests);
 		}
