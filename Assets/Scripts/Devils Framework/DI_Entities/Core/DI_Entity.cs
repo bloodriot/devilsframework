@@ -15,12 +15,22 @@ namespace DI.Entities.Core
 {
 	public class DI_Entity
 	{
-		private System.Guid entityId;
-		public DI_AnimationProperty animationProperties;
-		public DI_MovementProperty movementProperties;
-		public DI_SFXProperty sfxPropertiesOnSpawn;
-		public DI_SFXProperty sfxPropertiesOnDespawn;
-		public DI_HealthProperty healthProperties;
+		protected System.Guid entityId;
+
+		[Header("Properties")]
+		[SerializeField]
+		protected DI_AnimationProperty animationProperties;
+		[SerializeField]
+		protected DI_MovementProperty movementProperties;
+		[SerializeField]
+		protected DI_SFXProperty sfxPropertiesOnSpawn;
+		[SerializeField]
+		protected DI_SFXProperty sfxPropertiesOnDespawn;
+		[SerializeField]
+		protected DI_HealthProperty healthProperties;
+		[Header("Entity Settings")]
+		[SerializeField]
+		protected GameObject entityBody;
 
 		public void addSpawnSFX(DI_SFXClip clip)
 		{
@@ -111,6 +121,16 @@ namespace DI.Entities.Core
 		public float getMaxTurnSpeed()
 		{
 			return movementProperties.maxTurnSpeed;
+		}
+
+		public void setEntityBody(GameObject body)
+		{
+			entityBody = body;
+		}
+
+		public GameObject getEntityBody()
+		{
+			return entityBody;
 		}
 
 		// This will need to be implimented in game play code as we don't have a GameObject to take the transform.position from.
