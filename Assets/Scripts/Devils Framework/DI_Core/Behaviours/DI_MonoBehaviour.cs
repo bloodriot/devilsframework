@@ -10,11 +10,11 @@ namespace DI.Core.Behaviours
 {
 	public class DI_MonoBehaviour : MonoBehaviour, DI_Behaviour
 	{
-		void DI_Behaviour.log(string message) {
+		public void log(string message) {
 			DI_Debug.writeLog(DI_DebugLevel.INFO, message);
 		}
 		
-		void DI_Behaviour.log(DI_DebugLevel debugLevel, string message) {
+		public void log(DI_DebugLevel debugLevel, string message) {
 			DI_Debug.writeLog(debugLevel, message);
 		}
 	}
