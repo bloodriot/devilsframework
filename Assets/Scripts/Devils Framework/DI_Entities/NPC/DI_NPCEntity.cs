@@ -7,37 +7,37 @@
 using DI.Entities.Core;
 using UnityEngine;
 
-namespace DI.Entities.Enemy
+namespace DI.Entities.NPC
 {
-	public class DI_EnemyEntity : DI_Entity
+	public class DI_NPCEntity : DI_Entity
 	{
 		[SerializeField]
-		protected string enemyType;
+		protected string npcType;
 		// Fall alseep, preventing code execution if we are to far away from a player.
 		// You could override the onSleep method to despawn enemies that get to far away.
 		[Header("Sleep settings")]
-		[TooltipAttribute("Can this enemy go to sleep")]
+		[TooltipAttribute("Can this npc go to sleep")]
 		[SerializeField]
 		protected bool canSleep = true;
 		protected bool isSleeping = false;
 		// How close does a player need to be for us to be active.
-		[TooltipAttribute("How close does a player need to be for this enemy to remain awake")]
+		[TooltipAttribute("How close does a player need to be for this npc to remain awake")]
 		[SerializeField]
 		protected float activeRange = 100.0f;
 		// How long should we wait between sleep checks.
-		[TooltipAttribute("How often should this enemy check for players in range")]
+		[TooltipAttribute("How often should this npc check for players in range")]
 		[SerializeField]
 		protected float sleepCheckTime = 1.0f;
 		protected float lastSleepCheck = 0.0f;
 
-		public void setEnemyType(string type)
+		public void setNPCType(string type)
 		{
-			enemyType = type;
+			npcType = type;
 		}
 
-		public string getEnemyType()
+		public string getNPCType()
 		{
-			return enemyType;
+			return npcType;
 		}
 
 		public void sleep()
