@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<DI_Bindings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Bound_x0020_Keys>
+    <Bound_x0020_Key Bind_x0020_Type="BIND_KEY" Bound_x0020_Key="w" Player_x0020_Id="0" Bind_x0020_Name="forward" />
+  </Bound_x0020_Keys>
+</DI_Bindings>

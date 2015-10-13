@@ -335,7 +335,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 412490402}
-  - 114: {fileID: 412490403}
   m_Layer: 0
   m_Name: Management
   m_TagString: Untagged
@@ -355,23 +354,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
---- !u!114 &412490403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 412490401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84b4e0116bc55fa43bba44aef51aac95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabsToManage:
-  - {fileID: 119878, guid: 5c48cca3c6c45934ba443949ad7ff9ec, type: 2}
-  - {fileID: 119878, guid: 22f9e49861c4566429d41d24d9d54f7e, type: 2}
-  - {fileID: 119878, guid: f4283093893e1ff45ada3dff40d071db, type: 2}
-  - {fileID: 119878, guid: 3606e2f91613528458b7f82a71bddd8b, type: 2}
-  - {fileID: 119878, guid: 16706496719d0a84a9c1eb613d328faa, type: 2}
 --- !u!1 &449844046
 GameObject:
   m_ObjectHideFlags: 0

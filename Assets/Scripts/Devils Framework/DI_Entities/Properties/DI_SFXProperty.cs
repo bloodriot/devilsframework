@@ -12,7 +12,7 @@ namespace DI.Entities.Properties
 {
 	public struct DI_SFXProperty
 	{
-		public List<DI_SFXClip> sfxs;
+		public List<DI_SFXClipProperties> sfxs;
 		public bool hasSFX;
 	}
 }

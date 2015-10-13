@@ -17,29 +17,32 @@ namespace DI.Entities.Core
 	{
 		protected System.Guid entityId;
 
-		[Header("Properties")]
+		[Header("Entity Properties")]
 		[SerializeField]
 		protected DI_AnimationProperty animationProperties;
 		[SerializeField]
 		protected DI_MovementProperty movementProperties;
 		[SerializeField]
+		protected DI_HealthProperty healthProperties;
+
+		[Header("Entity Sound FX Properties")]
+		[SerializeField]
 		protected DI_SFXProperty sfxPropertiesOnSpawn;
 		[SerializeField]
 		protected DI_SFXProperty sfxPropertiesOnDespawn;
-		[SerializeField]
-		protected DI_HealthProperty healthProperties;
+
 		[Header("Entity Settings")]
 		[SerializeField]
 		protected GameObject entityBody;
 
-		public void addSpawnSFX(DI_SFXClip clip)
+		public void addSpawnSFX(DI_SFXClipProperties clip)
 		{
 			if (!sfxPropertiesOnSpawn.sfxs.Contains(clip)) {
 				sfxPropertiesOnSpawn.sfxs.Add(clip);
 			}
 		}
 
-		public void removeSpawnSFX(DI_SFXClip clip)
+		public void removeSpawnSFX(DI_SFXClipProperties clip)
 		{
 			if (sfxPropertiesOnSpawn.sfxs.Contains(clip)) {
 				sfxPropertiesOnSpawn.sfxs.Remove(clip);
@@ -47,14 +50,14 @@ namespace DI.Entities.Core
 		}
 
 		// On Despawn Sound Effects
-		public void addDespawnSFX(DI_SFXClip clip)
+		public void addDespawnSFX(DI_SFXClipProperties clip)
 		{
 			if (!sfxPropertiesOnDespawn.sfxs.Contains(clip)) {
 				sfxPropertiesOnDespawn.sfxs.Add(clip);
 			}
 		}
 		
-		public void removeDespawnSFX(DI_SFXClip clip)
+		public void removeDespawnSFX(DI_SFXClipProperties clip)
 		{
 			if (sfxPropertiesOnDespawn.sfxs.Contains(clip)) {
 				sfxPropertiesOnDespawn.sfxs.Remove(clip);
@@ -133,8 +136,14 @@ namespace DI.Entities.Core
 			return entityBody;
 		}
 
-		// This will need to be implimented in game play code as we don't have a GameObject to take the transform.position from.
-		public virtual void playSFX(DI_SFXProperty sfxProperty) {}
+		public void playSFX(DI_SFXClipProperties sfxProperty) {
+			if (entityBody != null) {
+				DI_SFX.playClipAtPoint(entityBody.transform.position, sfxProperty);
+			}
+			else {
+				DI_Debug.writeLog(DI_DebugLevel.HIGH, "Attempted to play an sfx at point without a location.");
+			}
+		}
 
 		// We don't know what the entity looks like, does it need armor reset, animations?
 		// The class that inherits this will need to set all this in its overriden onSpawn().
