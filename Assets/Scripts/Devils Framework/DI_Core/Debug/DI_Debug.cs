@@ -12,11 +12,25 @@ namespace DI.Core.Debug
 {
 	public static class DI_Debug
 	{
+		private static bool logToUnity = false;
+		private static bool logToCustom = true;
+
 		private static DI_DebugLevel globalDebugLevel = DI_DebugLevel.ALL;
 		public static List<DI_DebugLogEntry> debugLog;
 		public static void setGobalDebugLevel(DI_DebugLevel debugLevel) {
 			writeLog(DI_DebugLevel.INFO, "globalDebugLevel changed to: " + Enum.GetName(typeof(DI_DebugLevel), debugLevel));
 			globalDebugLevel = debugLevel;
+		}
+
+
+		public static void setUnityLogging(bool shouldLog)
+		{
+			logToUnity = shouldLog;
+		}
+
+		public static void setCustomLogging(bool shouldLog)
+		{
+			logToCustom = shouldLog;
 		}
 
 		public static DI_DebugLevel getGlobalDebugLevel()
@@ -72,31 +86,35 @@ namespace DI.Core.Debug
 					debugLog = new List<DI_DebugLogEntry>();
 				}
 
-				debugLog.Add(new DI_DebugLogEntry(debugLevel, stackTrace, prefix + message));
+				if (logToCustom) {
+					debugLog.Add(new DI_DebugLogEntry(debugLevel, stackTrace, prefix + message));
+				}
 
-//				switch (debugLevel) {
-//					case DI_DebugLevel.ALL:
-//						UnityEngine.Debug.Log(prefix + message);
-//					break;
-//					case DI_DebugLevel.ENGINE:
-//						UnityEngine.Debug.Log(prefix + message);
-//					break;
-//					case DI_DebugLevel.INFO:
-//						UnityEngine.Debug.Log(prefix + message);
-//					break;
-//					case DI_DebugLevel.LOW:
-//						UnityEngine.Debug.Log(prefix + message);
-//					break;
-//					case DI_DebugLevel.MEDIUM:
-//						UnityEngine.Debug.LogWarning(prefix + message);
-//					break;
-//					case DI_DebugLevel.HIGH:
-//						UnityEngine.Debug.LogError(prefix + message);
-//					break;
-//					case DI_DebugLevel.CRITICAL:
-//						UnityEngine.Debug.LogError(prefix + message);
-//					break;
-//				}
+				if (logToUnity) {
+					switch (debugLevel) {
+						case DI_DebugLevel.ALL:
+							UnityEngine.Debug.Log(prefix + message);
+						break;
+						case DI_DebugLevel.ENGINE:
+							UnityEngine.Debug.Log(prefix + message);
+						break;
+						case DI_DebugLevel.INFO:
+							UnityEngine.Debug.Log(prefix + message);
+						break;
+						case DI_DebugLevel.LOW:
+							UnityEngine.Debug.Log(prefix + message);
+						break;
+						case DI_DebugLevel.MEDIUM:
+							UnityEngine.Debug.LogWarning(prefix + message);
+						break;
+						case DI_DebugLevel.HIGH:
+							UnityEngine.Debug.LogError(prefix + message);
+						break;
+						case DI_DebugLevel.CRITICAL:
+							UnityEngine.Debug.LogError(prefix + message);
+						break;
+					}
+				}
 			}
 			//#endif
 		}
