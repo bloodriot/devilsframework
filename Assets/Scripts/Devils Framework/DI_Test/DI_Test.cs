@@ -13,11 +13,13 @@ namespace DI.Test
 		protected int totalTests = 0;
 		protected int passedTests = 0;
 		protected int failedTests = 0;
+		public bool canRunInEditor = true;
 
 		public int getTotalTests() { return totalTests; }
 		public int getPassedTests() { return passedTests; }
 		public int getFailedTests() { return failedTests; }
 		public DI_TestResult getTestResult() { return new DI_TestResult(passedTests, failedTests, totalTests); }
+		public bool runnableInEditor() { return canRunInEditor; }
 
 		public bool isEqual<T>(T objectOne, T objectTwo, string description)
 		{

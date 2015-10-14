@@ -11,7 +11,7 @@ using DI.Core.Behaviours;
 
 namespace DI.Core.Pooling
 {
-	public class PoolManagerSettings : DI_MonoBehaviour
+	public class PoolManager : DI_MonoBehaviour
 	{
 		public List<GameObject> prefabsToManage;
 

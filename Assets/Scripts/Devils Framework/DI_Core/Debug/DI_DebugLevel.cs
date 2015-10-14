@@ -8,6 +8,7 @@ namespace DI.Core.Debug
 	public enum DI_DebugLevel
 	{
 		ALL,
+		ENGINE,
 		INFO,
 		LOW,
 		MEDIUM,

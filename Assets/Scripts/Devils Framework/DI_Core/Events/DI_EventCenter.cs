@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 using System.Diagnostics;
+using DI.Core.Debug;
 
 namespace DI.Core.Events
 {
@@ -19,6 +20,7 @@ namespace DI.Core.Events
 				// Make sure we aren't adding delegate and null.
 				if (!eventTable.ContainsKey(eventType)) {
 					eventTable.Add(eventType, null);
+					DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Adding listener for event type: " + eventType);
 				}
 				
 				// Add the call back to the list of delgates
@@ -33,6 +35,7 @@ namespace DI.Core.Events
 					
 					if (eventTable[eventType] == null) {
 						eventTable.Remove(eventType);
+						DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Removing listener for event type: " + eventType);
 					}
 				}
 			}
@@ -44,6 +47,7 @@ namespace DI.Core.Events
 				CallBack callback = (CallBack)handler;
 				if (callback != null) {
 					callback();
+					DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Invoke called for event type: " + eventType);
 				}
 			}
 		}
@@ -58,6 +62,7 @@ namespace DI.Core.Events
 				// Make sure we aren't adding delegate and null.
 				if (!eventTable.ContainsKey(eventType)) {
 					eventTable.Add(eventType, null);
+					DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Adding listener for event type: " + eventType);
 				}
 				
 				// Add the call back to the list of delgates
@@ -71,6 +76,7 @@ namespace DI.Core.Events
 					
 					if (eventTable[eventType] == null) {
 						eventTable.Remove(eventType);
+						DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Removing listener for event type: " + eventType);
 					}
 				}
 			}
@@ -82,6 +88,7 @@ namespace DI.Core.Events
 				CallBack<T> callback = (CallBack<T>)handler;
 				if (callback != null) {
 					callback(argv1);
+					DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Invoke called for event type: " + eventType);
 				}
 			}
 		}
@@ -96,6 +103,7 @@ namespace DI.Core.Events
 				// Make sure we aren't adding delegate and null.
 				if (!eventTable.ContainsKey(eventType)) {
 					eventTable.Add(eventType, null);
+					DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Adding listener for event type: " + eventType);
 				}
 				
 				// Add the call back to the list of delgates
@@ -109,6 +117,7 @@ namespace DI.Core.Events
 					
 					if (eventTable[eventType] == null) {
 						eventTable.Remove(eventType);
+						DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Removing listener for event type: " + eventType);
 					}
 				}
 			}
@@ -120,6 +129,7 @@ namespace DI.Core.Events
 				CallBack<T, U> callback = (CallBack<T, U>)handler;
 				if (callback != null) {
 					callback(argv1, argv2);
+					DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Invoke called for event type: " + eventType);
 				}
 			}
 		}
@@ -134,6 +144,7 @@ namespace DI.Core.Events
 				// Make sure we aren't adding delegate and null.
 				if (!eventTable.ContainsKey(eventType)) {
 					eventTable.Add(eventType, null);
+					DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Adding listener for event type: " + eventType);
 				}
 				
 				// Add the call back to the list of delgates
@@ -147,6 +158,7 @@ namespace DI.Core.Events
 					
 					if (eventTable[eventType] == null) {
 						eventTable.Remove(eventType);
+						DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Removing listener for event type: " + eventType);
 					}
 				}
 			}
@@ -158,6 +170,7 @@ namespace DI.Core.Events
 				CallBack<T, U, V> callback = (CallBack<T, U, V>)handler;
 				if (callback != null) {
 					callback(argv1, argv2, argv3);
+					DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Invoke called for event type: " + eventType);
 				}
 			}
 		}
@@ -172,6 +185,7 @@ namespace DI.Core.Events
 				// Make sure we aren't adding delegate and null.
 				if (!eventTable.ContainsKey(eventType)) {
 					eventTable.Add(eventType, null);
+					DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Adding listener for event type: " + eventType);
 				}
 				
 				// Add the call back to the list of delgates
@@ -185,6 +199,7 @@ namespace DI.Core.Events
 					
 					if (eventTable[eventType] == null) {
 						eventTable.Remove(eventType);
+						DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Removing listener for event type: " + eventType);
 					}
 				}
 			}
@@ -196,6 +211,7 @@ namespace DI.Core.Events
 				CallBack<T, U, V, W> callback = (CallBack<T, U, V, W>)handler;
 				if (callback != null) {
 					callback(argv1, argv2, argv3, argv4);
+					DI_Debug.writeLog(DI_DebugLevel.ENGINE, "Invoke called for event type: " + eventType);
 				}
 			}
 		}

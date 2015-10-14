@@ -21,6 +21,8 @@ namespace DI.Core.Input
 		public int playerId;
 		[XmlAttribute("Bind Name")]
 		public string bindName;
+		[XmlAttribute("Dead Zone")]
+		public float deadZone;
 
 		public string toString()
 		{

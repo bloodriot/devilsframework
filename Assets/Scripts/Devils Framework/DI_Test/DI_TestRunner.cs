@@ -92,24 +92,25 @@ namespace DI.Test
 			spawnTests();
 
 			for (int testIteration = 0; testIteration < tests.Count; testIteration++) {
+				if (tests[testIteration].runnableInEditor()) {
+					DateTime testStartTime = DateTime.Now;
 
-				DateTime testStartTime = DateTime.Now;
+					DI_TestInterface test = tests[testIteration];
+					DI_TestResult results = runTest(testIteration);
 
-				DI_TestInterface test = tests[testIteration];
-				DI_TestResult results = runTest(testIteration);
+					DateTime testEndTime = DateTime.Now;
 
-				DateTime testEndTime = DateTime.Now;
+					DI_Debug.writeLog(DI_DebugLevel.INFO,
+					                  "Test Finished: " + test.getTestName()
+					                  + " Sub Tests: " + results.totalTests
+					                  + " Passed: " + results.passedTests
+					                  + " Failed: " + results.failedTests
+					                  + " Time Taken: " + DI_DateTime.diffTime(testStartTime, testEndTime).TotalMilliseconds + "MS");
 
-				DI_Debug.writeLog(DI_DebugLevel.INFO,
-				                  "Test Finished: " + test.getTestName()
-				                  + " Sub Tests: " + results.totalTests
-				                  + " Passed: " + results.passedTests
-				                  + " Failed: " + results.failedTests
-				                  + " Time Taken: " + DI_DateTime.diffTime(testStartTime, testEndTime).TotalMilliseconds + "MS");
-
-				totalTests += results.totalTests;
-				failedTests += results.failedTests;
-				passedTests += results.passedTests;
+					totalTests += results.totalTests;
+					failedTests += results.failedTests;
+					passedTests += results.passedTests;
+				}
 			}
 
 			DateTime endTime = DateTime.Now;

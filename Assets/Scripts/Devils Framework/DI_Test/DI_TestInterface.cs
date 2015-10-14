@@ -15,6 +15,7 @@ namespace DI.Test
 		int getTotalTests();
 		int getPassedTests();
 		int getFailedTests();
+		bool runnableInEditor();
 		DI_TestResult getTestResult();
 	}
 }
