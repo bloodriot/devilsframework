@@ -15,13 +15,13 @@ namespace DI.Core.Input
 	[Serializable]
 	public class DI_Bindings
 	{
-		[XmlArray("Bound Keys")]
-		[XmlArrayItem("Bound Key")]
-		public List<DI_KeyBind> boundKeys;
+		[XmlArray("Player")]
+		[XmlArrayItem("Bound Keys")]
+		public List<List<DI_KeyBind>> boundKeys;
 
 		public DI_Bindings()
 		{
-			boundKeys = new List<DI_KeyBind>();
+			boundKeys = new List<List<DI_KeyBind>>();
 		}
 	}
 }

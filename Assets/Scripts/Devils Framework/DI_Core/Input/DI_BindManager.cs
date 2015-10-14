@@ -18,6 +18,7 @@ namespace DI.Core.Input
 		[XmlElement("Bindings")]
 		public static DI_Bindings bindings;
 
+
 		public static void loadBoundKeys()
 		{
 			XmlSerializer serializer = new XmlSerializer(typeof(DI_Bindings));
@@ -39,8 +40,10 @@ namespace DI.Core.Input
 			DI_Debug.writeLog(DI_DebugLevel.CRITICAL, "BindManager: printBinds()");
 			for (int playerId = 0; playerId < bindings.boundKeys.Count; playerId++) {
 				DI_Debug.writeLog(DI_DebugLevel.CRITICAL, "BindManager: playerId: " + playerId);
-				for (int iteration = 0; iteration < bindings.boundKeys.Count; iteration++) {
-					DI_Debug.writeLog(DI_DebugLevel.CRITICAL, bindings.boundKeys[iteration].toString());
+				for (int player = 0; player < bindings.boundKeys.Count; player++) {
+					for (int iteration = 0; iteration < bindings.boundKeys.Count; iteration++) {
+						DI_Debug.writeLog(DI_DebugLevel.CRITICAL, bindings.boundKeys[player][iteration].toString());
+					}
 				}
 			}
 		}
@@ -53,8 +56,8 @@ namespace DI.Core.Input
 			}
 			
 			if (bindings.boundKeys.Count >= playerId) {
-				for (int iteration = 0; iteration < bindings.boundKeys.Count; iteration++) {
-					if (bindings.boundKeys[iteration].bindName == bindName) {
+				for (int iteration = 0; iteration < bindings.boundKeys[playerId].Count; iteration++) {
+					if (bindings.boundKeys[playerId][iteration].bindName == bindName) {
 						return iteration;
 					}
 				}
@@ -68,16 +71,23 @@ namespace DI.Core.Input
 				DI_Debug.writeLog(DI_DebugLevel.HIGH, "Bound keys has not been set yet, but access was requested.");
 				bindings = new DI_Bindings();
 			}
-			
+			if (keyBinding.playerId > bindings.boundKeys.Count - 1) {
+				DI_Debug.writeLog(DI_DebugLevel.INFO, "Attempted to add a key to a non-existant player - populating new player(s).");
+				while (keyBinding.playerId >= bindings.boundKeys.Count) {
+					DI_Debug.writeLog(DI_DebugLevel.INFO, "Adding player: " + bindings.boundKeys.Count + " to key bindings.");
+					bindings.boundKeys.Add(new List<DI_KeyBind>());
+				}
+			}
+
 			if (bindings.boundKeys.Count >= keyBinding.playerId) {
 				int keyIndex = getKeyIndex(keyBinding.bindName, keyBinding.playerId);
 
 				DI_Debug.writeLog(DI_DebugLevel.INFO, "Bind Manager: " + keyBinding.toString());
 				if (keyIndex != -1) {
-					bindings.boundKeys[keyIndex] = keyBinding;
+					bindings.boundKeys[keyBinding.playerId][keyIndex] = keyBinding;
 				}
 				else {
-					bindings.boundKeys.Add(keyBinding);
+					bindings.boundKeys[keyBinding.playerId].Add(keyBinding);
 				}
 			}
 		}
@@ -91,10 +101,13 @@ namespace DI.Core.Input
 
 			if (bindings.boundKeys.Count >= playerId) {
 				for (int iteration = 0; iteration < bindings.boundKeys.Count; iteration++) {
-					if (bindings.boundKeys[iteration].bindName == bindName) {
-						return bindings.boundKeys[iteration].bindKey;
+					if (bindings.boundKeys[playerId][iteration].bindName == bindName) {
+						return bindings.boundKeys[playerId][iteration].bindKey;
 					}
 				}
+			}
+			else {
+				DI_Debug.writeLog(DI_DebugLevel.MEDIUM, "Attempting to get a key from a non-registered player id.");
 			}
 			return null;
 		}
@@ -105,11 +118,11 @@ namespace DI.Core.Input
 				DI_Debug.writeLog(DI_DebugLevel.HIGH, "Bound keys has not been set yet, but access was requested.");
 				bindings = new DI_Bindings();
 			}
-			
+
 			if (bindings.boundKeys.Count >= playerId) {
 				for (int iteration = 0; iteration < bindings.boundKeys.Count; iteration++) {
-					if (bindings.boundKeys[iteration].bindName == bindName) {
-						return bindings.boundKeys[iteration].bindType;
+					if (bindings.boundKeys[playerId][iteration].bindName == bindName) {
+						return bindings.boundKeys[playerId][iteration].bindType;
 					}
 				}
 			}
@@ -128,16 +141,16 @@ namespace DI.Core.Input
 
 			if (bindings.boundKeys.Count >= playerId) {
 				for (int iteration = 0; iteration < bindings.boundKeys.Count; iteration++) {
-					if (bindings.boundKeys[iteration].bindName == bindName) {
+					if (bindings.boundKeys[playerId][iteration].bindName == bindName) {
 						keyIndex = iteration;
 					}
 				}
 			}
 
 			if (keyIndex != -1) {
-				DI_KeyBind bind = bindings.boundKeys[keyIndex];
+				DI_KeyBind bind = bindings.boundKeys[playerId][keyIndex];
 				bind.bindType = type;
-				bindings.boundKeys[keyIndex] = bind;
+				bindings.boundKeys[playerId][keyIndex] = bind;
 			}
 		}
 	}
