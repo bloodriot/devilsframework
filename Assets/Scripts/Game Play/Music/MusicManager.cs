@@ -24,6 +24,7 @@ namespace DI.Music
 
 		[Header("Audio Source Setup")]
 		public AudioSource audioSource;
+		[Tooltip("It's important to put the snapshots in the right order, Slient first then Normal.")]
 		public AudioMixerSnapshot[] crossfadeSnapshots;
 
 		[Header("General Settings")]
