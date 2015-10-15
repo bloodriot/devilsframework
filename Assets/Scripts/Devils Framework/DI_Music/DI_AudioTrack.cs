@@ -14,9 +14,11 @@
 //------------------------------------------------------------------------------
 
 using UnityEngine;
+using System;
 
 namespace DI.Music
 {
+	[Serializable]
 	public struct DI_AudioTrack
 	{
 		public UnityEngine.AudioClip clip;

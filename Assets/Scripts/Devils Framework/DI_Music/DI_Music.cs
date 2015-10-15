@@ -5,6 +5,8 @@
 //
 
 using UnityEngine;
+using UnityEngine.Audio;
+
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,10 +16,9 @@ namespace DI.Music
 {
 	public static class DI_Music
 	{
-		public static AudioSource sourceOne;
-		public static AudioSource sourceTwo;
+		private static AudioSource source;
 
-		public static List<DI_AudioTrack> audioTracks;
+		private static List<DI_AudioTrack> audioTracks;
 		public static DI_AudioTrack currentlyPlaying;
 
 		private static List<DI_AudioTrack> availableTracks;
@@ -35,6 +36,18 @@ namespace DI.Music
 		private static void crossFade()
 		{
 			if (currentlyPlaying.shouldCrossFade) {
+			}
+		}
+
+		public static void addAudioTrack(DI_AudioTrack track)
+		{
+			if (audioTracks == null) {
+				audioTracks = new List<DI_AudioTrack>();
+			}
+
+			if (!audioTracks.Contains(track)) {
+				audioTracks.Add(track);
+				rebuildPlaylist();
 			}
 		}
 
@@ -56,23 +69,28 @@ namespace DI.Music
 				rebuildPlaylist();
 			}
 
-			int trackNumber = UnityEngine.Random.Range(0, availableTracks.Count - 1);
+			int trackNumber = UnityEngine.Random.Range(0, availableTracks.Count);
 			currentlyPlaying = availableTracks[trackNumber];
 			availableTracks.RemoveAt(trackNumber);
 
 			play();
 		}
 
+		public static void crossFadeIn(AudioMixerSnapshot[] snapshots)
+		{
+			source.outputAudioMixerGroup.audioMixer.TransitionToSnapshots(snapshots, new float[] {0.0f, 1.0f}, currentlyPlaying.introTime);
+		}
+
+		public static void crossFadeOut(AudioMixerSnapshot[] snapshots)
+		{
+			source.outputAudioMixerGroup.audioMixer.TransitionToSnapshots(snapshots, new float[] {0.0f, 1.0f}, currentlyPlaying.outroTime);
+		}
+
 		public static void play()
 		{
-			if (sourceOne != null) {
-				if (currentlyPlaying.shouldCrossFade) {
-					crossFade();
-				}
-				else {
-					sourceOne.clip = currentlyPlaying.clip;
-					sourceOne.Play();
-				}
+			if (source != null) {
+				source.clip = currentlyPlaying.clip;
+				source.Play();
 			}
 			else {
 				DI_Debug.writeLog(DI_DebugLevel.CRITICAL, "AudioSource is not yet defined, yet attempting to play an audio clip with it.");
@@ -85,10 +103,9 @@ namespace DI.Music
 			play ();
 		}
 
-		public static void setAudioSources(AudioSource sourceA, AudioSource sourceB)
+		public static void setAudioSource(AudioSource input)
 		{
-			sourceOne = sourceA;
-			sourceTwo = sourceB;
+			source = input;
 		}
 	}
 }
