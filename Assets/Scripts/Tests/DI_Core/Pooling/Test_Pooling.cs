@@ -42,7 +42,7 @@ namespace DI.Core.Test
 		public DI_TestResult run()
 		{
 			DI_PoolManager.setStartingSize(10);
-			DI_PoolManager.setWillGo(true);
+			DI_PoolManager.setWillGrow(true);
 			DI_PoolManager.initalize();
 
 			isEqual<bool>((DI_PoolManager.getPrefabByName("Test Object One") == null), false, "Adding an object to pool management and fetching it works. 1/5");

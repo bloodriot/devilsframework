@@ -71,7 +71,7 @@ namespace DI.Core.Pooling
 			}
 		}
 
-		public static void setWillGo(bool grow)
+		public static void setWillGrow(bool grow)
 		{
 			willGrow = grow;
 		}
