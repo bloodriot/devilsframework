@@ -14,16 +14,14 @@ using DI.Core.Debug;
 
 namespace DI.Music
 {
-	public class MusicManager : DI_MonoBehaviour
+	public class MusicManager : DI_MonoBehaviourSingleton<MusicManager>
 	{
-		[HideInInspector]
-		public static MusicManager instance;
-
 		[Header("Background Music Selection")]
 		public List<DI_AudioTrack> backgroundMusic;
 
 		[Header("Audio Source Setup")]
 		public AudioSource audioSource;
+		public AudioSource audioSourceTwo;
 		[Tooltip("It's important to put the snapshots in the right order, Slient first then Normal.")]
 		public AudioMixerSnapshot[] crossfadeSnapshots;
 
@@ -31,18 +29,7 @@ namespace DI.Music
 		public bool playOnStartup = false;
 		public float masterBGMVolume = 0.25f;
 
-		private bool isCrossFading = false;
-
-		public void Awake()
-		{
-			if (instance == null) {
-				instance = this;
-			}
-			else {
-				log(DI_DebugLevel.INFO, "Attempted to create a new instance of a singleton class, cleaning up the duplicate.");
-				Destroy(this);
-			}
-		}
+		private bool isFading = false;
 
 		public void OnEnable()
 		{
@@ -66,16 +53,16 @@ namespace DI.Music
 			if (audioSource.isPlaying) {
 				float audioTrackTimeLeft = audioSource.clip.length - audioSource.time;
 				if (DI_Music.currentlyPlaying.shouldCrossFade) {
-					if (!isCrossFading) {
+					if (!isFading) {
 						if (DI_Music.currentlyPlaying.outroTime <= audioTrackTimeLeft) {
-							DI_Music.crossFadeOut(crossfadeSnapshots);
-							isCrossFading = true;
-							StartCoroutine(crossFade(DI_Music.currentlyPlaying.outroTime));
+							DI_Music.fadeOut(crossfadeSnapshots);
+							isFading = true;
+							StartCoroutine(fadeTimer(DI_Music.currentlyPlaying.outroTime));
 						}
 						if (DI_Music.currentlyPlaying.introTime >= audioSource.time) {
-							DI_Music.crossFadeIn(crossfadeSnapshots);
-							isCrossFading = true;
-							StartCoroutine(crossFade(DI_Music.currentlyPlaying.introTime));
+							DI_Music.fadeIn(crossfadeSnapshots);
+							isFading = true;
+							StartCoroutine(fadeTimer(DI_Music.currentlyPlaying.introTime));
 						}
 					}
 				}
@@ -83,16 +70,16 @@ namespace DI.Music
 			else {
 				DI_Music.playNextRandom();
 				if (DI_Music.currentlyPlaying.shouldCrossFade) {
-					StartCoroutine(crossFade(DI_Music.currentlyPlaying.introTime));
-					isCrossFading = true;
+					StartCoroutine(fadeTimer(DI_Music.currentlyPlaying.introTime));
+					isFading = true;
 				}
 			}
 		}
 
-		public IEnumerator crossFade(float time)
+		public IEnumerator fadeTimer(float time)
 		{
 			yield return new WaitForSeconds(time);
-			isCrossFading = false;
+			isFading = false;
 		}
 	}
 }

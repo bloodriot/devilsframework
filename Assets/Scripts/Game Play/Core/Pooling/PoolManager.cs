@@ -11,9 +11,16 @@ using DI.Core.Behaviours;
 
 namespace DI.Core.Pooling
 {
-	public class PoolManager : DI_MonoBehaviour
+	public class PoolManager : DI_MonoBehaviourSingleton<PoolManager>
 	{
 		public List<GameObject> prefabsToManage;
+
+		public void Awake()
+		{
+			if (!makeSingleton(this)) {
+				Destroy(this);
+			}
+		}
 
 		public void OnEnable()
 		{

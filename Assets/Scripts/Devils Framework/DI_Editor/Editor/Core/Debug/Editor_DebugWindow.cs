@@ -101,7 +101,7 @@ namespace DI.Core.Debug
 			}
 			EditorGUILayout.EndScrollView();
 
-			GUI.backgroundColor = Color.clear;
+			GUI.backgroundColor = Color.grey;
 
 			EditorGUILayout.BeginVertical();
 			detailsScroll = EditorGUILayout.BeginScrollView(detailsScroll, GUILayout.MinHeight(100.0f));

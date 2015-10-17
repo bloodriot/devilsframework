@@ -14,11 +14,8 @@ using DI.Core.Debug;
 
 namespace DI.Core.Input
 {
-	public class InputManager : DI_MonoBehaviour
+	public class InputManager : DI_MonoBehaviourSingleton<InputManager>
 	{
-		[HideInInspector]
-		public static InputManager instance;
-
 		[Header("Debug values: DO NOT EDIT MANUALLY!")]
 		public List<DI_KeyBind> binds;
 		public List<int> bindIndex;
@@ -27,6 +24,13 @@ namespace DI.Core.Input
 		[Header("Input Processing")]
 		[Tooltip("Should we be processing input updates?")]
 		public bool updatingInput = true;
+
+		public void Awake()
+		{
+			if (!makeSingleton(this)) {
+				Destroy(this);
+			}
+		}
 
 		public void updateBindingCache()
 		{
@@ -40,17 +44,6 @@ namespace DI.Core.Input
 					bindIndex.Add(keyIndex);
 					bindState.Add(DI_KeyState.KEY_NOT_PRESSED);
 				}
-			}
-		}
-
-		public void Awake()
-		{
-			if (instance == null) {
-				instance = this;
-			}
-			else {
-				log(DI_DebugLevel.INFO, "Attempted to create a new instance of a singleton class, cleaning up the duplicate.");
-				Destroy(this);
 			}
 		}
 

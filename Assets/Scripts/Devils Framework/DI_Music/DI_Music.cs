@@ -33,12 +33,6 @@ namespace DI.Music
 			}
 		}
 
-		private static void crossFade()
-		{
-			if (currentlyPlaying.shouldCrossFade) {
-			}
-		}
-
 		public static void addAudioTrack(DI_AudioTrack track)
 		{
 			if (audioTracks == null) {
@@ -59,7 +53,6 @@ namespace DI.Music
 
 			currentlyPlaying = availableTracks[0];
 			availableTracks.RemoveAt(0);
-
 			play();
 		}
 
@@ -76,12 +69,12 @@ namespace DI.Music
 			play();
 		}
 
-		public static void crossFadeIn(AudioMixerSnapshot[] snapshots)
+		public static void fadeIn(AudioMixerSnapshot[] snapshots)
 		{
 			source.outputAudioMixerGroup.audioMixer.TransitionToSnapshots(snapshots, new float[] {0.0f, 1.0f}, currentlyPlaying.introTime);
 		}
 
-		public static void crossFadeOut(AudioMixerSnapshot[] snapshots)
+		public static void fadeOut(AudioMixerSnapshot[] snapshots)
 		{
 			source.outputAudioMixerGroup.audioMixer.TransitionToSnapshots(snapshots, new float[] {0.0f, 1.0f}, currentlyPlaying.outroTime);
 		}

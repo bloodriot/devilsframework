@@ -66,7 +66,8 @@ LightmapSettings:
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
-  m_LightmapSnapshot: {fileID: 0}
+  m_LightmapSnapshot: {fileID: 112000001, guid: 85333192e24e0c740b2945de7f449119,
+    type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
 NavMeshSettings:
@@ -338,6 +339,7 @@ GameObject:
   - 114: {fileID: 412490403}
   - 114: {fileID: 412490406}
   - 82: {fileID: 412490405}
+  - 114: {fileID: 412490404}
   m_Layer: 0
   m_Name: Management
   m_TagString: Untagged
@@ -372,6 +374,50 @@ MonoBehaviour:
   bindIndex: 
   bindState: 
   updatingInput: 1
+--- !u!114 &412490404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 412490401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f715111e22ff14399e947266e8c8bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerOneGameState: 9
+  playerTwoGameState: 9
+  transitions:
+  - thisState: 9
+    nextState: 7
+    transitionEvent: 0
+  - thisState: 0
+    nextState: 0
+    transitionEvent: 0
+  - thisState: 0
+    nextState: 0
+    transitionEvent: 0
+  - thisState: 0
+    nextState: 0
+    transitionEvent: 0
+  - thisState: 0
+    nextState: 0
+    transitionEvent: 0
+  - thisState: 0
+    nextState: 0
+    transitionEvent: 0
+  - thisState: 0
+    nextState: 0
+    transitionEvent: 0
+  - thisState: 0
+    nextState: 0
+    transitionEvent: 0
+  - thisState: 0
+    nextState: 0
+    transitionEvent: 0
+  - thisState: 0
+    nextState: 0
+    transitionEvent: 0
 --- !u!82 &412490405
 AudioSource:
   m_ObjectHideFlags: 0
@@ -464,6 +510,7 @@ MonoBehaviour:
     outroTime: 3
     shouldCrossFade: 1
   audioSource: {fileID: 412490405}
+  audioSourceTwo: {fileID: 0}
   crossfadeSnapshots:
   - {fileID: 24537712, guid: 64a3581293ea3f24291482e03e11db0c, type: 2}
   - {fileID: 24551516, guid: 64a3581293ea3f24291482e03e11db0c, type: 2}
