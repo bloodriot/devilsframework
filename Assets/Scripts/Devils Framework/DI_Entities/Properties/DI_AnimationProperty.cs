@@ -5,9 +5,11 @@
 //
 
 using UnityEngine;
+using System;
 
 namespace DI.Entities.Properties
 {
+	[Serializable]
 	public struct DI_AnimationProperty
 	{
 		public bool hasAnimations;

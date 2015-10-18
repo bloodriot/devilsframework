@@ -11,6 +11,7 @@ using DI.Core.Behaviours;
 
 namespace DI.Core.Pooling
 {
+	[AddComponentMenu("Devil's Inc Studios/Managers/Pooling")]
 	public class PoolManager : DI_MonoBehaviourSingleton<PoolManager>
 	{
 		public List<GameObject> prefabsToManage;

@@ -4,18 +4,14 @@
 // TODO: Include a description of the file here.
 //
 
-using System.Collections.Generic;
-using UnityEngine;
 using System;
-
-using DI.SFX;
 
 namespace DI.Entities.Properties
 {
 	[Serializable]
-	public struct DI_SFXProperty
+	public struct DI_RunSpeedProperty
 	{
-		public List<DI_SFXClipProperties> sfxs;
-		public bool hasSFX;
+		public float maxMovementSpeed;
+		public float movementSpeedIncreaseRate;
 	}
 }

@@ -2,7 +2,26 @@
 <DI_Bindings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Player>
     <Bound_x0020_Keys>
-      <DI_KeyBind Bind_x0020_Type="BIND_KEY" Bound_x0020_Key="w" Player_x0020_Id="0" Bind_x0020_Name="forward" Dead_x0020_Zone="0" />
+      <DI_KeyBind Bind_x0020_Type="BIND_AXIS" Bound_x0020_Key="Vertical" Player_x0020_Id="0" Bind_x0020_Name="Vertical" Dead_x0020_Zone="0">
+        <bindIndex>0</bindIndex>
+        <bindState>AXIS_NEGATIVE</bindState>
+      </DI_KeyBind>
+      <DI_KeyBind Bind_x0020_Type="BIND_AXIS" Bound_x0020_Key="Horizontal" Player_x0020_Id="0" Bind_x0020_Name="Horizontal" Dead_x0020_Zone="0">
+        <bindIndex>0</bindIndex>
+        <bindState>AXIS_NEGATIVE</bindState>
+      </DI_KeyBind>
+	  <DI_KeyBind Bind_x0020_Type="BIND_BUTTON" Bound_x0020_Key="Sprint" Player_x0020_Id="0" Bind_x0020_Name="Sprint" Dead_x0020_Zone="0">
+        <bindIndex>0</bindIndex>
+        <bindState>KEY_NOT_PRESSED</bindState>
+      </DI_KeyBind>
+	  <DI_KeyBind Bind_x0020_Type="BIND_BUTTON" Bound_x0020_Key="Jump" Player_x0020_Id="0" Bind_x0020_Name="Jump" Dead_x0020_Zone="0">
+        <bindIndex>0</bindIndex>
+        <bindState>KEY_NOT_PRESSED</bindState>
+      </DI_KeyBind>
+	  <DI_KeyBind Bind_x0020_Type="BIND_BUTTON" Bound_x0020_Key="Walk" Player_x0020_Id="0" Bind_x0020_Name="Walk" Dead_x0020_Zone="0">
+        <bindIndex>0</bindIndex>
+        <bindState>KEY_NOT_PRESSED</bindState>
+      </DI_KeyBind>
     </Bound_x0020_Keys>
   </Player>
 </DI_Bindings>

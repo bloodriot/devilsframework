@@ -11,9 +11,11 @@ using System.Collections;
 
 using DI.Core.Behaviours;
 using DI.Core.Debug;
+using DI.Core.Events;
 
 namespace DI.Music
 {
+	[AddComponentMenu("Devil's Inc Studios/Managers/Music")]
 	public class MusicManager : DI_MonoBehaviourSingleton<MusicManager>
 	{
 		[Header("Background Music Selection")]
@@ -21,7 +23,6 @@ namespace DI.Music
 
 		[Header("Audio Source Setup")]
 		public AudioSource audioSource;
-		public AudioSource audioSourceTwo;
 		[Tooltip("It's important to put the snapshots in the right order, Slient first then Normal.")]
 		public AudioMixerSnapshot[] crossfadeSnapshots;
 
@@ -30,6 +31,14 @@ namespace DI.Music
 		public float masterBGMVolume = 0.25f;
 
 		private bool isFading = false;
+		private bool isPlayingMusic = false;
+
+		public void Awake()
+		{
+			if (!makeSingleton(this)) {
+				Destroy(this);
+			}
+		}
 
 		public void OnEnable()
 		{
@@ -46,6 +55,27 @@ namespace DI.Music
 			}
 
 			audioSource.volume = masterBGMVolume;
+
+			DI_EventCenter<DI_AudioTrack>.addListener("OnMusicChange", handleMusicChange);
+			DI_EventCenter.addListener("OnMusicStart", handleMusicStart);
+			DI_EventCenter.addListener("OnMusicStop", handleMusicStop);
+		}
+
+		public void handleMusicStart()
+		{
+			DI_Music.playNextRandom();
+			isPlayingMusic = true;
+		}
+
+		public void handleMusicStop()
+		{
+			audioSource.Stop();
+			isPlayingMusic = false;
+		}
+
+		public void handleMusicChange(DI_AudioTrack track)
+		{
+			DI_Music.playTrack(track);
 		}
 
 		public void Update()
@@ -68,10 +98,12 @@ namespace DI.Music
 				}
 			}
 			else {
-				DI_Music.playNextRandom();
-				if (DI_Music.currentlyPlaying.shouldCrossFade) {
-					StartCoroutine(fadeTimer(DI_Music.currentlyPlaying.introTime));
-					isFading = true;
+				if (isPlayingMusic) {
+					DI_Music.playNextRandom();
+					if (DI_Music.currentlyPlaying.shouldCrossFade) {
+						StartCoroutine(fadeTimer(DI_Music.currentlyPlaying.introTime));
+						isFading = true;
+					}
 				}
 			}
 		}

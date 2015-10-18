@@ -4,14 +4,19 @@
 // TODO: Include a description of the file here.
 //
 
+using System;
+using UnityEngine;
+
 using DI.Entities.Core;
 using DI.Entities.Properties;
 
 namespace DI.Entities.Player
 {
+	[Serializable]
 	public class DI_PlayerEntity : DI_Entity
 	{
-		private int playerId;
+		[SerializeField]
+		protected int playerId;
 
 		public void setPlayerId(int id)
 		{

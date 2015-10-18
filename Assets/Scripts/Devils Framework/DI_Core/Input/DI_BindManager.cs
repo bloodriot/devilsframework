@@ -48,17 +48,30 @@ namespace DI.Core.Input
 			}
 		}
 
+		public static void setKeyState(int bindIndex, int playerId, DI_KeyState state)
+		{
+			bindings.boundKeys[playerId][bindIndex].bindState = state;
+		}
+
+		public static DI_KeyState getKeyState(int bindIndex, int playerId)
+		{
+			return bindings.boundKeys[playerId][bindIndex].bindState;
+		}
+
 		public static int getKeyIndex(string bindName, int playerId)
 		{
 			if (bindings == null) {
 				DI_Debug.writeLog(DI_DebugLevel.HIGH, "Bound keys has not been set yet, but access was requested.");
 				bindings = new DI_Bindings();
 			}
-			
-			if (bindings.boundKeys.Count >= playerId) {
-				for (int iteration = 0; iteration < bindings.boundKeys[playerId].Count; iteration++) {
-					if (bindings.boundKeys[playerId][iteration].bindName == bindName) {
-						return iteration;
+
+			if (bindings.boundKeys != null) {
+				if (bindings.boundKeys.Count > playerId) {
+					for (int iteration = 0; iteration < bindings.boundKeys[playerId].Count; iteration++) {
+						if (bindings.boundKeys[playerId][iteration].bindName == bindName) {
+							DI_Debug.writeLog(DI_DebugLevel.INFO, "GetKeyIndex (" + bindName + ":" + playerId + ") returned: " + iteration);
+							return iteration;
+						}
 					}
 				}
 			}

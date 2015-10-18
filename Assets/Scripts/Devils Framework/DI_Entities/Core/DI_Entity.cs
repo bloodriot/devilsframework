@@ -10,9 +10,11 @@ using DI.Core.Debug;
 using DI.SFX;
 
 using UnityEngine;
+using System;
 
 namespace DI.Entities.Core
 {
+	[Serializable]
 	public class DI_Entity
 	{
 		protected System.Guid entityId;
@@ -64,6 +66,15 @@ namespace DI.Entities.Core
 			}
 		}
 
+		public bool hasAnimations()
+		{
+			return animationProperties.hasAnimations;
+		}
+		public Animator getAnimator()
+		{
+			return animationProperties.animator;
+		}
+
 		// Health Property
 		public void setHealth(float newHealth)
 		{
@@ -96,6 +107,26 @@ namespace DI.Entities.Core
 			return movementProperties.movementSpeed;
 		}
 
+		public void setMaxMovementSpeedRunning(float newSpeed)
+		{
+			movementProperties.maxMovementSpeedRunning = newSpeed;
+		}
+		
+		public float getMaxMovementSpeedRunning()
+		{
+			return movementProperties.maxMovementSpeedRunning;
+		}
+
+		public void setMovementSpeedIncreaseRate(float newSpeed)
+		{
+			movementProperties.movementSpeedIncreaseRate = newSpeed;
+		}
+		
+		public float getMovementSpeedIncreaseRate()
+		{
+			return movementProperties.movementSpeedIncreaseRate;
+		}
+
 		public void setMaxMovementSpeed(float newSpeed)
 		{
 			movementProperties.maxMovementSpeed = newSpeed;
@@ -124,6 +155,16 @@ namespace DI.Entities.Core
 		public float getMaxTurnSpeed()
 		{
 			return movementProperties.maxTurnSpeed;
+		}
+
+		public void setTurnSpeedIncreaseRate(float newSpeed)
+		{
+			movementProperties.turnSpeedIncreaseRate = newSpeed;
+		}
+		
+		public float getTurnSpeedIncreaseRate()
+		{
+			return movementProperties.turnSpeedIncreaseRate;
 		}
 
 		public void setEntityBody(GameObject body)

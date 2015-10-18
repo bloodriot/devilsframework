@@ -1,0 +1,20 @@
+// Devils Inc Studios
+// Copyright DEVILS INC. STUDIOS LIMITED 2015
+//
+// TODO: Include a description of the file here.
+//
+
+using System;
+
+namespace DI.Entities.Properties
+{
+	[Serializable]
+	public struct DI_StaminaProperty
+	{
+		public float maxStamina;
+		public float currentStamina;
+		public bool hasUnlimitedStamina;
+		public float staminaDrainPerTick;
+		public float staminaRegenPerTick;
+	}
+}

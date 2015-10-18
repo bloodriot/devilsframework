@@ -10,6 +10,7 @@ namespace DI.Core.Input
 	{
 		BIND_AXIS,
 		BIND_KEY,
+		BIND_BUTTON,
 		UNDEFINED
 	}
 }

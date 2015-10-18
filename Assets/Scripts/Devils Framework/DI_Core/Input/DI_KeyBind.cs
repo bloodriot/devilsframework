@@ -17,12 +17,14 @@ namespace DI.Core.Input
 		public DI_KeyBindType bindType;
 		[XmlAttribute("Bound Key")]
 		public string bindKey;
+		public int bindIndex;
 		[XmlAttribute("Player Id")]
 		public int playerId;
 		[XmlAttribute("Bind Name")]
 		public string bindName;
 		[XmlAttribute("Dead Zone")]
 		public float deadZone;
+		public DI_KeyState bindState;
 
 		public string toString()
 		{

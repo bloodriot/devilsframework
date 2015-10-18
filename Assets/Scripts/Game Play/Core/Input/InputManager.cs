@@ -14,12 +14,11 @@ using DI.Core.Debug;
 
 namespace DI.Core.Input
 {
+	[AddComponentMenu("Devil's Inc Studios/Managers/Input")]
 	public class InputManager : DI_MonoBehaviourSingleton<InputManager>
 	{
-		[Header("Debug values: DO NOT EDIT MANUALLY!")]
-		public List<DI_KeyBind> binds;
-		public List<int> bindIndex;
-		public List<DI_KeyState> bindState;
+		[Header("Debug bindings.")]
+		public List<DI_KeyBind> bindings;
 
 		[Header("Input Processing")]
 		[Tooltip("Should we be processing input updates?")]
@@ -32,87 +31,60 @@ namespace DI.Core.Input
 			}
 		}
 
-		public void updateBindingCache()
-		{
-			binds = new List<DI_KeyBind>();
-			bindIndex = new List<int>();
-			bindState = new List<DI_KeyState>();
-
-			for (int player = 0; player < DI_BindManager.bindings.boundKeys.Count; player++) {
-				for (int keyIndex = 0; keyIndex < DI_BindManager.bindings.boundKeys[player].Count; keyIndex++) {
-					binds.Add(DI_BindManager.bindings.boundKeys[player][keyIndex]);
-					bindIndex.Add(keyIndex);
-					bindState.Add(DI_KeyState.KEY_NOT_PRESSED);
-				}
-			}
-		}
-
 		public void OnEnable()
 		{
 			DI_BindManager.loadBoundKeys();
-			updateBindingCache();
 		}
 
 		public void Update()
 		{
 			if (updatingInput) {
+				bindings = DI_BindManager.bindings.boundKeys[0];
+
 				// TODO check what players are actually playing and ignore events from players not in the game.
-				for (int index = 0; index < binds.Count; index++) {
-					switch (binds[index].bindType) {
+				for (int playerIndex = 0; playerIndex < DI_BindManager.bindings.boundKeys.Count; playerIndex++) {
+					for (int bindIndex = 0; bindIndex < DI_BindManager.bindings.boundKeys[playerIndex].Count; bindIndex++) {
+						switch (DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindType) {
 						case DI_KeyBindType.BIND_AXIS:
-							if (UnityEngine.Input.GetAxis(binds[index].bindKey) > binds[index].deadZone) {
-								if (bindState[index] != DI_KeyState.AXIS_POSITIVE) {
-									DI_EventCenter<int, DI_KeyState>.invoke("OnInputEvent-" + binds[index].bindName, binds[index].playerId, DI_KeyState.AXIS_POSITIVE);
-									bindState[index] = DI_KeyState.AXIS_POSITIVE;
-									log(DI_DebugLevel.LOW, "InputManager: Changing state to AXIS_POSITVE for bind: " + binds[index].bindName + " on player: " + binds[index].playerId);
-								}
+							float axisTilt = UnityEngine.Input.GetAxis(DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindKey);
+							if (axisTilt > 0.0f) {
+								DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindState = DI_KeyState.AXIS_POSITIVE;
 							}
-							else if (UnityEngine.Input.GetAxis(binds[index].bindKey) < binds[index].deadZone * -1) {
-								if (bindState[index] != DI_KeyState.AXIS_NEGATIVE) {
-									DI_EventCenter<int, DI_KeyState>.invoke("OnInputEvent-" + binds[index].bindName, binds[index].playerId, DI_KeyState.AXIS_NEGATIVE);
-									bindState[index] = DI_KeyState.AXIS_NEGATIVE;
-									log(DI_DebugLevel.LOW, "InputManager: Changing state to AXIS_NEGATIVE for bind: " + binds[index].bindName + " on player: " + binds[index].playerId);
-								}
+							else if (axisTilt < 0.0f) {
+								DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindState = DI_KeyState.AXIS_NEGATIVE;
 							}
 							else {
-								if (bindState[index] != DI_KeyState.AXIS_NOT_PRESSED) {
-									DI_EventCenter<int, DI_KeyState>.invoke("OnInputEvent-" + binds[index].bindName, binds[index].playerId, DI_KeyState.AXIS_NOT_PRESSED);
-									bindState[index] = DI_KeyState.AXIS_NOT_PRESSED;
-									log(DI_DebugLevel.LOW, "InputManager: Changing state to AXIS_NOT_PRESSED for bind: " + binds[index].bindName + " on player: " + binds[index].playerId);
-								}
+								DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindState = DI_KeyState.AXIS_NOT_PRESSED;
 							}
-						break;
-
+							break;
+						case DI_KeyBindType.BIND_BUTTON:
+							bool buttonDown = UnityEngine.Input.GetButtonDown(DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindKey);
+							if (buttonDown && DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindState == DI_KeyState.KEY_NOT_PRESSED) {
+								DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindState = DI_KeyState.KEY_PRESSED;
+							}
+							else if (buttonDown && DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindState == DI_KeyState.KEY_PRESSED) {
+								DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindState = DI_KeyState.KEY_HELD;
+							}
+							else {
+								DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindState = DI_KeyState.KEY_NOT_PRESSED;
+							}
+							break;
 						case DI_KeyBindType.BIND_KEY:
-							if (UnityEngine.Input.GetKeyDown(binds[index].bindKey)) {
-								// If the key is just now being pressed, move it to a pressed state.
-								if (bindState[index] != DI_KeyState.KEY_PRESSED) {
-									DI_EventCenter<int, DI_KeyState>.invoke("OnInputEvent-" + binds[index].bindName, binds[index].playerId, DI_KeyState.KEY_PRESSED);
-									bindState[index] = DI_KeyState.KEY_PRESSED;
-									log(DI_DebugLevel.LOW, "InputManager: Changing state to KEY_PRESSED for bind: " + binds[index].bindName + " on player: " + binds[index].playerId);
-								}
+							bool keyDown = UnityEngine.Input.GetKeyDown(DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindKey);
+							if (keyDown && DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindState == DI_KeyState.KEY_NOT_PRESSED) {
+								DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindState = DI_KeyState.KEY_PRESSED;
 							}
-							else if (UnityEngine.Input.GetKey(binds[index].bindKey)) {
-								// If the key is being held down, move it to a held state.
-								if (bindState[index] != DI_KeyState.KEY_HELD) {
-									DI_EventCenter<int, DI_KeyState>.invoke("OnInputEvent-" + binds[index].bindName, binds[index].playerId, DI_KeyState.KEY_HELD);
-									bindState[index] = DI_KeyState.KEY_HELD;
-									log(DI_DebugLevel.LOW, "InputManager: Changing state to KEY_HELD for bind: " + binds[index].bindName + " on player: " + binds[index].playerId);
-								}
+							else if (keyDown && DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindState == DI_KeyState.KEY_PRESSED) {
+								DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindState = DI_KeyState.KEY_HELD;
 							}
-							// If the key is not pressed, move it to a pressed state.
 							else {
-								if (bindState[index] != DI_KeyState.KEY_NOT_PRESSED) {
-									DI_EventCenter<int, DI_KeyState>.invoke("OnInputEvent-" + binds[index].bindName, binds[index].playerId, DI_KeyState.KEY_NOT_PRESSED);
-									bindState[index] = DI_KeyState.KEY_NOT_PRESSED;
-									log(DI_DebugLevel.LOW, "InputManager: Changing state to KEY_NOT_PRESSED for bind: " + binds[index].bindName + " on player: " + binds[index].playerId);
-								}
+								DI_BindManager.bindings.boundKeys[playerIndex][bindIndex].bindState = DI_KeyState.KEY_NOT_PRESSED;
 							}
-						break;
-
+							break;
 						default:
 							log(DI_DebugLevel.CRITICAL, "Hit unexpected bind type when updating input.");
-						break;
+							break;
+						}
 					}
 				}
 			}

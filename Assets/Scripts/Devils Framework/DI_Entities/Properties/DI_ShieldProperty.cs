@@ -4,8 +4,13 @@
 // TODO: Include a description of the file here.
 //
 
+using System;
+using System.Xml.Serialization;
+using System.Xml;
+
 namespace DI.Entities.Properties
 {
+	[Serializable]
 	public struct DI_ShieldProperty
 	{
 		public float maxShield;

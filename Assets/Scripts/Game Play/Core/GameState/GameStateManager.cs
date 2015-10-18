@@ -15,6 +15,7 @@ using DI.Core.Events;
 
 namespace DI.Core.GameState
 {
+	[AddComponentMenu("Devil's Inc Studios/Managers/Game State")]
 	public class GameStateManager : DI_MonoBehaviourSingleton<GameStateManager>
 	{
 		[Header("Debug view of players one and twos game states.")]
