@@ -14,5 +14,31 @@ namespace DI.Core.Helpers
 		{
 			return end.Subtract(start);
 		}
+
+		static public string convertToReadableTime(float timeInSeconds)
+		{
+			float hours = 0;
+			float minutes = 0;
+			float seconds = 0;
+			
+			while (timeInSeconds > 3600) {
+				timeInSeconds -= 3600;
+				hours++;
+			}
+			while (timeInSeconds > 60) {
+				timeInSeconds -= 60;
+				minutes++;
+			}
+			seconds = timeInSeconds;
+			if (hours > 0) {
+				return (hours + ":" + minutes + ":" + seconds);
+			}
+			else if (minutes > 0) {
+				return (minutes + ":" + seconds);
+			}
+			else {
+				return seconds + "";
+			}
+		}
 	}
 }
